@@ -20,6 +20,7 @@ def training(file_name, focus, formation_route, weight_direction):
         for element in formation_route:
             stats[element] += randint(10, 20)
             stats[element] = min(stats[element], 500)
+    stats["weight"] = amend_weight(weight_direction, stats["weight"], stats["base_weight"])
     with open(file_name, "w") as file:
         yaml.safe_dump(stats, file)
 
