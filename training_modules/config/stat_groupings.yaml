@@ -1,0 +1,35 @@
+total: [
+vision,
+positioning,
+strength,
+speed,
+kicking,
+punting,
+agility,
+route_running,
+blocking,
+rushing,
+running,
+passing,
+throw_power,
+tackling,
+catching,
+fitness
+]
+
+vision: [positioning, running, catching, passing]
+positioning: [vision, route_running, speed, running]
+strength: [throw_power, blocking, rushing, fitness]
+speed: [agility, route_running, fitness, catching]
+kicking: [punting]
+punting: [kicking]
+agility: [route_running, speed, positioning, vision]
+route_running: [positioning, speed, catching, agility]
+blocking: [rushing, strength, fitness, tackling]
+rushing: [blocking, tackling, strength, speed]
+running: [tackling, speed, agility, fitness]
+passing: [throw_power, vision, positioning, route_running]
+throw_power: [passing, strength, vision, positioning]
+tackling: [running, strength, speed, catching]
+catching: [tackling, positioning, route_running, positioning]
+fitness: [strength, speed, agility, throw_power]
