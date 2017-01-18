@@ -2,7 +2,7 @@ import yaml
 from random import randint
 
 
-def training(file_name, focus, formation_route):
+def training(file_name, focus, formation_route, weight_direction):
     with open(file_name, "r") as file:
         stats = yaml.safe_load(file)
     group, total = focus_assignments(focus)
@@ -33,3 +33,22 @@ def focus_assignments(focus):
         if focus in group:
             return groupings[group].append(focus), total
     return ["blank"], total
+
+
+def amend_weight(direction, weight, base_weight):
+    biggest_shift = 10
+    direction_move = (direction == "up") - (direction == "down")
+    weight = float(weight)
+    base_weight = float(base_weight)
+
+    max_move = biggest_shift * direction_move
+    if direction not in ["up", "down"]:
+        return int(max(base_weight * (100 - biggest_shift) / 100,
+                   min(base_weight * (100 + biggest_shift) / 100,),
+                   weight + randint(-2, 2)))
+    diff_to_go = ((base_weight * (100 + max_move) / 100 - weight) / base_weight)
+    weight_move = diff_to_go * 10
+    end_weight = weight + base_weight * weight_move / 100
+    return int(max(base_weight * (100 - biggest_shift) / 100,
+                   min(base_weight * (100 + biggest_shift) / 100,),
+                   end_weight + randint(-2, 2)))
