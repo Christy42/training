@@ -1,3 +1,4 @@
+import os
 import yaml
 from random import randint
 
@@ -26,7 +27,7 @@ def training(file_name, focus, formation_route, weight_direction):
 
 
 def focus_assignments(focus):
-    # with open(os.path.join(os.path.dirname(__file__), "config/stat_groupings.yaml"), "r") as file:
+    print(os.path.join(os.path.dirname(__file__), "config/stat_groupings.yaml"))
     with open("C:\\Users\\Mark\\PycharmProjects\\training\\training_modules\\config\\stat_groupings.yaml", "r") as file:
         groupings = yaml.safe_load(file)
     total = groupings["total"]
@@ -45,11 +46,11 @@ def amend_weight(direction, weight, base_weight):
     max_move = biggest_shift * direction_move
     if direction not in ["up", "down"]:
         return int(max(base_weight * (100 - biggest_shift) / 100,
-                   min(base_weight * (100 + biggest_shift) / 100,),
-                   weight + randint(-2, 2)))
+                   min(base_weight * (100 + biggest_shift) / 100,
+                   weight + randint(-2, 2))))
     diff_to_go = ((base_weight * (100 + max_move) / 100 - weight) / base_weight)
     weight_move = diff_to_go * 10
     end_weight = weight + base_weight * weight_move / 100
     return int(max(base_weight * (100 - biggest_shift) / 100,
-                   min(base_weight * (100 + biggest_shift) / 100,),
-                   end_weight + randint(-2, 2)))
+                   min(base_weight * (100 + biggest_shift) / 100,
+                   end_weight + randint(-2, 2))))
