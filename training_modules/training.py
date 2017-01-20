@@ -27,8 +27,7 @@ def training(file_name, focus, formation_route, weight_direction):
 
 
 def focus_assignments(focus):
-    print(os.path.join(os.path.dirname(__file__), "config/stat_groupings.yaml"))
-    with open("C:\\Users\\Mark\\PycharmProjects\\training\\training_modules\\config\\stat_groupings.yaml", "r") as file:
+    with open(os.environ['FOOTBALL_HOME'] + "//training_config//stat_groupings.yaml") as file:
         groupings = yaml.safe_load(file)
     total = groupings["total"]
     for group in groupings:
