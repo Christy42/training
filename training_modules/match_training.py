@@ -10,7 +10,7 @@ def match_training(file_name, route_percentages, formation_percentages, position
 
     for element in formation_percentages:
         stats[element] = min(500, formation_increase(formation_percentages[element]))
-    stats[position] = min(500, stats[position])
+    stats[position] = min(500, stats[position] + randint(25, 35))
     with open(file_name, "w") as file:
         yaml.safe_dump(stats, file)
 
