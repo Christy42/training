@@ -10,7 +10,7 @@ def match_training(file_name, route_percentages, formation_percentages, position
 
     for element in formation_percentages:
         stats[element] = min(500, formation_increase(formation_percentages[element]))
-    stats[position] = min(500, stats[position] + randint(25, 35))
+    stats[position] = min(500, stats[position] + randint(0, 4))
     with open(file_name, "w") as file:
         yaml.safe_dump(stats, file)
 
@@ -19,17 +19,17 @@ def route_increase(route_percentage):
     if route_percentage == 0:
         return 0
     elif route_percentage >= 80:
-        return 30 + randint(-5, 5)
+        return max(randint(0, 6), 0)
     elif route_percentage >= 50:
-        return 20 + randint(-4, 4)
+        return max(randint(-1, 5), 0)
     elif route_percentage >= 30:
-        return 15 + randint(-3, 3)
+        return max(randint(-2, 5), 0)
     elif route_percentage >= 20:
-        return 6 + randint(-3, 3)
+        return max(randint(-3, 4), 0)
     elif route_percentage >= 10:
-        return 3 + randint(-2, 2)
+        return max(randint(-4, 4), 0)
     else:
-        return max(1 + randint(-3, 1), 0)
+        return max(randint(-5, 1), 0)
 
 
 def formation_increase(formation_percentage):
