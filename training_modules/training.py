@@ -18,20 +18,20 @@ def training(file_name, focus, formation_route, weight_direction):
         for element in group:
             if element == "strength":
                 stats["strength basis"] += randint(0, 3)
-                str_constant = stats["strength basis"] - stats["age factor"] ** 2 - 2 * 28 * stats["age factor"]
-                str_mult = 56 + 2 * stats["age factor"]
+                str_constant = stats["strength basis"] - stats["age factor"] ** 2 - 2 * 26 * stats["age factor"]
+                str_mult = 52 + 2 * stats["age factor"]
                 stats["strength"] = min(int((-stats["age"] ** 2 + str_mult * stats["age"] + str_constant)),
                                         stats["max_strength"])
             elif element == "speed":
                 stats["speed basis"] += randint(0, 3)
-                spd_constant = stats["speed basis"] - stats["age factor"] ** 2 - 2 * 28 * stats["age factor"]
+                spd_constant = stats["speed basis"] - stats["age factor"] ** 2 - 2 * 22 * stats["age factor"]
                 spd_mult = 44 + 2 * stats["age factor"]
                 stats["speed"] = min(int((-stats["age"] ** 2 + spd_mult * stats["age"] + spd_constant)),
                                      stats["max_speed"])
             elif element == "fitness":
                 stats["fitness basis"] += randint(0, 3)
-                fit_constant = stats["fitness basis"] - stats["age factor"] ** 2 - 2 * 28 * stats["age factor"]
-                fit_mult = 56 + 2 * stats["age factor"]
+                fit_constant = stats["fitness basis"] - stats["age factor"] ** 2 - 2 * 26 * stats["age factor"]
+                fit_mult = 52 + 2 * stats["age factor"]
                 stats["fitness"] = min(int((-stats["age"] ** 2 + fit_mult * stats["age"] + fit_constant)),
                                        stats["max_fitness"])
             else:
