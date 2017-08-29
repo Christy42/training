@@ -11,31 +11,37 @@ def training(file_name, focus, formation_route, weight_direction):
         focus = "blank"
     if group is None:
         group = ["blank"]
-    for element in total:
-        stats[element] += (element in group) + (element == focus) * 4 + randint(0, 2)
-        stats[element] = min(stats[element], stats[element + "_max"])
+    if focus not in ["strength", "speed", "fitness"]:
+        for element in total:
+            stats[element] += (element in group) + (element == focus) * 4 + randint(0, 2)
+            stats[element] = min(stats[element], stats[element + "_max"])
+    else:
+        if stats[focus + " basis"] > stats[focus + " basis max"] - 80:
+            stats[focus + " basis"] += min(randint(0, 3), randint(0, 3))
+        elif stats[focus + " basis"] > stats[focus + " basis max"] - 50:
+            stats[focus + " basis"] += min(randint(0, 2), randint(0, 2))
+        elif stats[focus + " basis"] > stats[focus + " basis max"] - 30:
+            stats[focus + " basis"] += min(randint(0, 1), randint(0, 1))
+        elif stats[focus + " basis"] > stats[focus + " basis max"] - 1:
+            stats[focus + " basis"] += 0
+        else:
+            stats[focus + " basis"] += randint(0, 3)
+    str_constant = stats["strength basis"] - stats["age factor"] ** 2 - 2 * 26 * stats["age factor"]
+    str_mult = 52 + 2 * stats["age factor"]
+    stats["strength"] = min(int((-stats["age"] ** 2 + str_mult * stats["age"] + str_constant)),
+                            stats["strength basis max"])
+    spd_constant = stats["speed basis"] - stats["age factor"] ** 2 - 2 * 24 * stats["age factor"]
+    spd_mult = 48 + 2 * stats["age factor"]
+    stats["speed"] = min(int((-stats["age"] ** 2 + spd_mult * stats["age"] + spd_constant)),
+                         stats["speed basis max"])
+    fit_constant = stats["strength basis"] - stats["age factor"] ** 2 - 2 * 26 * stats["age factor"]
+    fit_mult = 52 + 2 * stats["age factor"]
+    stats["fitness"] = min(int((-stats["age"] ** 2 + fit_mult * stats["age"] + fit_constant)),
+                           stats["fitness basis max"])
     if not formation_route and group != ["blank"]:
-        for element in group:
-            if element == "strength":
-                stats["strength basis"] += randint(0, 3)
-                str_constant = stats["strength basis"] - stats["age factor"] ** 2 - 2 * 26 * stats["age factor"]
-                str_mult = 52 + 2 * stats["age factor"]
-                stats["strength"] = min(int((-stats["age"] ** 2 + str_mult * stats["age"] + str_constant)),
-                                        stats["max_strength"])
-            elif element == "speed":
-                stats["speed basis"] += randint(0, 3)
-                spd_constant = stats["speed basis"] - stats["age factor"] ** 2 - 2 * 22 * stats["age factor"]
-                spd_mult = 44 + 2 * stats["age factor"]
-                stats["speed"] = min(int((-stats["age"] ** 2 + spd_mult * stats["age"] + spd_constant)),
-                                     stats["max_speed"])
-            elif element == "fitness":
-                stats["fitness basis"] += randint(0, 3)
-                fit_constant = stats["fitness basis"] - stats["age factor"] ** 2 - 2 * 26 * stats["age factor"]
-                fit_mult = 52 + 2 * stats["age factor"]
-                stats["fitness"] = min(int((-stats["age"] ** 2 + fit_mult * stats["age"] + fit_constant)),
-                                       stats["max_fitness"])
-            else:
-                stats[element] = min(stats[element] + randint(0, 5), stats["max_" + element])
+        if focus not in ["strength", "speed", "fitness"]:
+            for element in group:
+                stats[element] = min(stats[element] + randint(0, 1), stats["max_" + element])
     elif formation_route:
         for element in formation_route:
             stats[element] += randint(10, 20)

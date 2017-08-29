@@ -7,7 +7,7 @@ setup(
     author="Mark Christiansen",
     url="N/A",
     author_email="mark.christiansen@nuim.ie",
-    version=1.0,
+    version=1.2,
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
 
     # Alternatively, if you want to distribute just a my_module.py, uncomment
